@@ -22,7 +22,7 @@ router.post("/signup", use(signupUser));
 router.post("/review/:propertyId", requireAuth, use(reviewProperty));
 
 //todo: review route
-router.get("/review", requireAuth, use(getReviews));
+router.get("/reviews", requireAuth, use(getReviews));
 
 //todo: contact us route
 router.post("/contactus", requireAuth, use(contactUser));

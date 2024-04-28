@@ -21,7 +21,7 @@ const requireAdmin = require("../middleware/requireAdmin");
 router.post("/login", use(loginAdmin));
 
 //todo: home route
-router.post("/home", requireAdmin, use(createAdmin));
+router.post("/createadmin", requireAdmin, use(createAdmin));
 
 //todo: add project route
 router.post("/addproject", requireAdmin, use(addProject));
@@ -45,6 +45,6 @@ router.get("/selectreviews/:reviewId", requireAdmin, use(selectReview));
 router.get("/removereviews/:reviewId", requireAdmin, use(removeReview));
 
 //todo: home route
-router.post("/verify-token", requireAdmin, use(adminDetails));
+router.get("/home", requireAdmin, use(adminDetails));
 
 module.exports = router;

@@ -46,7 +46,6 @@ const reviewProperty = async (req, res) => {
 //todo: review user
 const getReviews = async (req, res) => {
   const reviews = await Review.find({ permission: true });
-  console.log(reviews);
   return res.status(200).json(reviews);
 };
 
@@ -54,12 +53,17 @@ const getReviews = async (req, res) => {
 const contactUser = async (req, res) => {
   const { name, email, message } = req.body;
 
-  const contact = await Contact.create({ name, email, message });
+  // const contact = await Contact.create({
+  //   userId: req.user._id,
+  //   name,
+  //   email,
+  //   message,
+  // });
 
   //todo: send an email
   sendEmail(email, "Contact Us", name, email, message, contactEmail);
 
-  return res.status(200).json(contact);
+  return res.status(200).json({ message: "Email sent successfully" });
 };
 
 module.exports = {

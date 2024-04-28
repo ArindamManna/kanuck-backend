@@ -25,14 +25,15 @@ const loginAdmin = async (req, res) => {
   return res.status(200).json({ fname, lname, email, token });
 };
 
-const adminDetails = (req, res) => {
-  return res.status(200).json(req.user);
+const adminDetails = async (req, res) => {
+  const projects = await Project.find({ adminId: req.user._id });
+  return res.status(200).json({ admin: req.user, projects });
 };
 
 const addProject = async (req, res) => {
   const { name, desc } = req.body;
 
-  const project = await Project.create({ name, desc });
+  const project = await Project.create({ name, desc, adminId: req.user._id });
 
   return res.status(200).json(project);
 };
@@ -95,9 +96,11 @@ const removeReview = async (req, res) => {
 const createAdmin = async (req, res) => {
   const { fname, lname, ccode, pno, email, password } = req.body;
 
-  const user = await User.signup(fname, lname, ccode, pno, email, password);
+  let user = await User.signup(fname, lname, ccode, pno, email, password);
 
-  return res.status(200).json({ email });
+  user = await User.updateOne({ _id: user._id }, { $set: { isAdmin: true } });
+
+  return res.status(200).json(user);
 };
 
 module.exports = {
