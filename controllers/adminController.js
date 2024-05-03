@@ -1,7 +1,8 @@
-const User = require("../models/userModel");
-const Review = require("../models/reviewModel");
-const Project = require("../models/projectModel");
-const Property = require("../models/propertyModel");
+const User = require("../models/User");
+const Review = require("../models/Review");
+const Builder = require("../models/Builder");
+const Project = require("../models/Project");
+const Property = require("../models/Property");
 const jwt = require("jsonwebtoken");
 
 //todo: token create
@@ -30,47 +31,38 @@ const adminDetails = async (req, res) => {
   return res.status(200).json({ admin: req.user, projects });
 };
 
-const addProject = async (req, res) => {
-  const { name, desc } = req.body;
-
-  const project = await Project.create({ name, desc, adminId: req.user._id });
-
-  return res.status(200).json(project);
-};
-
-const addProperty = async (req, res) => {
-  const { name, desc } = req.body;
-  const projectId = req.params.projectId;
-  const project = await Project.findById(projectId);
-  if (!project) {
-    throw Error("Project not found");
+const updatedProject = async (req, res) => {
+  if (req.body.tags) {
+    const { tags } = req.body;
+    req.body.tags = tags.map((tag) => {
+      return { label: tag };
+    });
   }
-  const property = await Property.create({ name, desc });
-
-  const updatedProject = await Project.updateOne(
-    { _id: projectId },
-    { $addToSet: { properties: property._id } }
+  if (req.body.amenitiesList) {
+    const { amenitiesList } = req.body;
+    req.body.amenitiesList = amenitiesList.map((tag) => {
+      return { label: tag };
+    });
+  }
+  const project = await Project.findByIdAndUpdate(
+    req.params.projectId,
+    req.body,
+    { new: true }
   );
-
-  return res.status(200).json(updatedProject);
-};
-
-const getProject = async (req, res) => {
-  const projectId = req.params.projectId;
-  const project = await Project.findById(projectId);
-
-  if (!project) {
-    throw Error("Project not found");
-  }
-
-  await project.populate("properties");
-
   return res.status(200).json(project);
 };
 
-const getAllProjects = async (req, res) => {
-  const projects = await Project.find();
-  return res.status(200).json(projects);
+const addImage = async (req, res) => {
+  if (!req.file) {
+    throw Error("No files were uploaded.");
+  }
+  const projectId = req.params.projectId;
+  const imageUrl = `${process.env.BASE_URL}/${req.file.path}`;
+  await Project.updateOne(
+    { _id: projectId },
+    { $addToSet: { images: { url: imageUrl } } }
+  );
+  return res.status(200).json(image);
 };
 
 const reviewPermission = async (req, res) => {
@@ -98,7 +90,7 @@ const createAdmin = async (req, res) => {
 
   let user = await User.signup(fname, lname, ccode, pno, email, password);
 
-  user = await User.updateOne({ _id: user._id }, { $set: { isAdmin: true } });
+  user = await user.updateOne({ $set: { isAdmin: true } });
 
   return res.status(200).json(user);
 };
@@ -107,11 +99,9 @@ module.exports = {
   loginAdmin,
   adminDetails,
   createAdmin,
-  addProject,
-  addProperty,
-  getProject,
-  getAllProjects,
   reviewPermission,
   selectReview,
   removeReview,
+  addImage,
+  updatedProject,
 };

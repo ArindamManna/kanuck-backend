@@ -1,6 +1,7 @@
-const User = require("../models/userModel");
-const Contact = require("../models/contactModel");
-const Review = require("../models/reviewModel");
+const User = require("../models/User");
+const Contact = require("../models/Contact");
+const Property = require("../models/Property");
+const Review = require("../models/Review");
 const jwt = require("jsonwebtoken");
 
 const { sendEmail } = require("../utils/sendEmail");
@@ -34,21 +35,6 @@ const signupUser = async (req, res) => {
   return res.status(200).json({ email, token });
 };
 
-//todo: review user
-const reviewProperty = async (req, res) => {
-  const { rating, message } = req.body;
-  const propertyId = req.params.propertyId;
-
-  const review = await Review.create({ propertyId, rating, message });
-
-  return res.status(200).json(review);
-};
-//todo: review user
-const getReviews = async (req, res) => {
-  const reviews = await Review.find({ permission: true });
-  return res.status(200).json(reviews);
-};
-
 //todo: contact us user
 const contactUser = async (req, res) => {
   const { name, email, message } = req.body;
@@ -70,6 +56,4 @@ module.exports = {
   signupUser,
   loginUser,
   contactUser,
-  reviewProperty,
-  getReviews,
 };
