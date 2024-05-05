@@ -56,6 +56,12 @@ const updateBuilder = async (req, res) => {
   return res.status(200).json(builder);
 };
 
+const deleteBuilder = async (req, res) => {
+  const builderId = req.params.builderId;
+  const builder = await Builder.findByIdAndDelete(builderId);
+  return res.status(200).json(builder);
+};
+
 const builderReview = async (req, res) => {
   const { title, rating, review } = req.body;
   const builderId = req.params.builderId;
@@ -91,4 +97,5 @@ module.exports = {
   getBuilder,
   getAllBuilder,
   updateBuilder,
+  deleteBuilder,
 };

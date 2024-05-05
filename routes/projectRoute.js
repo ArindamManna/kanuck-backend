@@ -11,6 +11,7 @@ const {
   addImage,
   addAnemities,
   addHighlights,
+  deleteProject,
 } = require("../controllers/projectController");
 
 //todo: Set up multer storage and file upload
@@ -31,5 +32,6 @@ router.post("/add/image/:projectId", upload.single("image"), use(addImage));
 router.post("/add/anemities/:projectId", use(addAnemities));
 router.post("/add/highlights/:projectId", use(addHighlights));
 router.put("/update/:projectId", use(updateProject));
+router.delete("/delete/:projectId", use(deleteProject));
 
 module.exports = router;

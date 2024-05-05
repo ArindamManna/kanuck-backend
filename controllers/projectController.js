@@ -4,9 +4,13 @@ const Review = require("../models/Review");
 
 const addProject = async (req, res) => {
   req.body.builderId = req.params.builderId;
-
+  const builder = await Builder.findById(req.body.builderId);
+  if (!builder) {
+    throw Error("Builder not found");
+  }
   const project = await Project.create(req.body);
-  const updateBuilder = await Builder.updateOne(
+
+  await Builder.updateOne(
     { _id: req.body.builderId },
     { $addToSet: { projects: project._id } }
   );
@@ -71,6 +75,11 @@ const updateProject = async (req, res) => {
   });
   return res.status(200).json(project);
 };
+const deleteProject = async (req, res) => {
+  const projectId = req.params.projectId;
+  const project = await Project.findByIdAndDelete(projectId);
+  return res.status(200).json(project);
+};
 
 const projectReview = async (req, res) => {
   const { title, rating, review } = req.body;
@@ -120,6 +129,7 @@ const getAllProjects = async (req, res) => {
 module.exports = {
   addProject,
   updateProject,
+  deleteProject,
   addTags,
   addImage,
   addAnemities,

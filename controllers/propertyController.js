@@ -10,7 +10,7 @@ const addProperty = async (req, res) => {
   }
   const property = await Property.create(req.body);
 
-  const updatedProject = await Project.updateOne(
+  await Project.updateOne(
     { _id: projectId },
     { $addToSet: { properties: property._id } }
   );
@@ -115,6 +115,11 @@ const updateProperty = async (req, res) => {
   });
   return res.status(200).json(property);
 };
+const deleteProperty = async (req, res) => {
+  const propertyId = req.params.propertyId;
+  const property = await Property.findByIdAndUpdate(propertyId);
+  return res.status(200).json(property);
+};
 
 module.exports = {
   propertyReview,
@@ -126,4 +131,5 @@ module.exports = {
   getProperty,
   getAllProperty,
   updateProperty,
+  deleteProperty,
 };

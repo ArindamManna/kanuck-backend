@@ -8,6 +8,7 @@ const {
   addBuilder,
   builderImage,
   updateBuilder,
+  deleteBuilder,
 } = require("../controllers/builderController");
 
 //todo: Set up multer storage and file upload
@@ -23,6 +24,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.put("/update/:builderId", use(updateBuilder));
+router.delete("/delete/:builderId", use(deleteBuilder));
 router.post("/add", upload.single("image"), use(addBuilder));
 router.post("/upload/:builderId", upload.single("image"), use(builderImage));
 
