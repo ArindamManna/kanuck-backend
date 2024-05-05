@@ -42,6 +42,9 @@ const getBuilder = async (req, res) => {
 
 const getAllBuilder = async (req, res) => {
   const builders = await Builder.find();
+  for (let i = 0; i < builders.length; i++) {
+    await builders[i].populate("projects");
+  }
   return res.status(200).json(builders);
 };
 
