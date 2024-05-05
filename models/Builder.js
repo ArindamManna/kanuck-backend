@@ -7,9 +7,14 @@ const builderSchema = new Schema(
       type: String,
       required: true,
     },
+    email: {
+      type: String,
+    },
+    phone: {
+      type: String,
+    },
     description: {
       type: String,
-      required: true,
     },
     image: {
       url: String,

@@ -2,16 +2,11 @@ const Builder = require("../models/Builder");
 const Review = require("../models/Review");
 
 const addBuilder = async (req, res) => {
-  const { name, description, location } = req.body;
+  // const { name } = req.body;
 
-  const imageUrl = `${process.env.BASE_URL}/${req.file?.path}`;
+  // const imageUrl = `${process.env.BASE_URL}/${req.file?.path}`;
 
-  const builder = await Builder.create({
-    name,
-    description,
-    image: { url: imageUrl },
-    location,
-  });
+  const builder = await Builder.create(req.body);
   return res.status(200).json(builder);
 };
 
