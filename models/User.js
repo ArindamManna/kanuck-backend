@@ -87,7 +87,7 @@ userSchema.statics.login = async function (email, password) {
   const user = await this.findOne({ email });
 
   if (!user) {
-    throw Error("user not found");
+    throw Error("Email not found");
   }
 
   //todo: bcrypt package method
