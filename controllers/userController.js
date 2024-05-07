@@ -52,8 +52,13 @@ const contactUser = async (req, res) => {
   return res.status(200).json({ message: "Email sent successfully" });
 };
 
+const userDetails = async (req, res) => {
+  return res.status(200).json(req.user);
+};
+
 module.exports = {
   signupUser,
   loginUser,
   contactUser,
+  userDetails,
 };

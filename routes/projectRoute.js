@@ -7,10 +7,7 @@ const use = (fn) => (req, res, next) =>
 const {
   addProject,
   updateProject,
-  addTags,
   addImage,
-  addAnemities,
-  addHighlights,
   deleteProject,
 } = require("../controllers/projectController");
 
@@ -27,10 +24,10 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.post("/add/:builderId", use(addProject));
-router.post("/add/tags/:projectId", use(addTags));
-router.post("/add/image/:projectId", upload.single("image"), use(addImage));
-router.post("/add/anemities/:projectId", use(addAnemities));
-router.post("/add/highlights/:projectId", use(addHighlights));
+// router.post("/add/tags/:projectId", use(addTags));
+router.post("/add/image/:projectId", upload.array("image"), use(addImage));
+// router.post("/add/anemities/:projectId", use(addAnemities));
+// router.post("/add/highlights/:projectId", use(addHighlights));
 router.put("/update/:projectId", use(updateProject));
 router.delete("/delete/:projectId", use(deleteProject));
 

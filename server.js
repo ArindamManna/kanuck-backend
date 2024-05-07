@@ -12,7 +12,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 //todo: cors
-const whitelist = "http://localhost:3000,http://localhost:3001";
+const whitelist =
+  "http://localhost:3000,http://localhost:3001,https://ranauk-frontend-git-main-arindammannas-projects.vercel.app";
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || whitelist.indexOf(origin) !== -1) callback(null, true);

@@ -8,8 +8,8 @@ const propertySchema = new Schema(
       required: true,
     },
     price: {
-      from: { type: String, required: true },
-      to: { type: String, required: true },
+      from: String,
+      to: String,
     },
     location: {
       url: String,
@@ -19,11 +19,9 @@ const propertySchema = new Schema(
     },
     listingStatus: {
       type: String,
-      required: true,
     },
     description: {
       type: String,
-      required: true,
     },
     tags: [
       {

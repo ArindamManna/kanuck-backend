@@ -17,56 +17,57 @@ const addProject = async (req, res) => {
   return res.status(200).json(project);
 };
 
-const addTags = async (req, res) => {
-  const { tags } = req.body;
-  const project = await Project.findByIdAndUpdate(
-    req.params.projectId,
-    {
-      $addToSet: { tags },
-    },
-    { new: true }
-  );
-  return res.status(200).json(project);
-};
-
 const addImage = async (req, res) => {
-  if (!req.file) {
+  console.log(req.files);
+  if (!req.files) {
     throw Error("No files were uploaded.");
   }
   const imageUrl = `${process.env.BASE_URL}/${req.file?.path}`;
   const projectId = req.params.projectId;
-  const project = await Project.findByIdAndUpdate(
-    projectId,
-    { $addToSet: { images: { url: imageUrl } } },
-    {
-      new: true,
-    }
-  );
-  return res.status(200).json(project);
+  // const project = await Project.findByIdAndUpdate(
+  //   projectId,
+  //   { $addToSet: { images: { url: imageUrl } } },
+  //   {
+  //     new: true,
+  //   }
+  // );
+  return res.status(200).json(req.files);
 };
 
-const addAnemities = async (req, res) => {
-  const { amenitiesList } = req.body;
-  const project = await Project.findByIdAndUpdate(
-    req.params.projectId,
-    {
-      $addToSet: { amenitiesList },
-    },
-    { new: true }
-  );
-  return res.status(200).json(project);
-};
-const addHighlights = async (req, res) => {
-  const { highlights } = req.body;
-  const project = await Project.findByIdAndUpdate(
-    req.params.projectId,
-    {
-      $addToSet: { highlights },
-    },
-    { new: true }
-  );
-  return res.status(200).json(project);
-};
+// const addTags = async (req, res) => {
+//   const { tags } = req.body;
+//   const project = await Project.findByIdAndUpdate(
+//     req.params.projectId,
+//     {
+//       $addToSet: { tags },
+//     },
+//     { new: true }
+//   );
+//   return res.status(200).json(project);
+// };
+
+// const addAnemities = async (req, res) => {
+//   const { amenitiesList } = req.body;
+//   const project = await Project.findByIdAndUpdate(
+//     req.params.projectId,
+//     {
+//       $addToSet: { amenitiesList },
+//     },
+//     { new: true }
+//   );
+//   return res.status(200).json(project);
+// };
+// const addHighlights = async (req, res) => {
+//   const { highlights } = req.body;
+//   const project = await Project.findByIdAndUpdate(
+//     req.params.projectId,
+//     {
+//       $addToSet: { highlights },
+//     },
+//     { new: true }
+//   );
+//   return res.status(200).json(project);
+// };
 
 const updateProject = async (req, res) => {
   const projectId = req.params.projectId;
@@ -130,10 +131,7 @@ module.exports = {
   addProject,
   updateProject,
   deleteProject,
-  addTags,
   addImage,
-  addAnemities,
-  addHighlights,
   projectReview,
   getProjectReviews,
   getProject,

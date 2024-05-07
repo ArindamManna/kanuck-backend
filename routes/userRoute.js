@@ -25,11 +25,13 @@ const {
   loginUser,
   signupUser,
   contactUser,
+  userDetails,
 } = require("../controllers/userController");
 const requireAuth = require("../middleware/requireAuth");
 
 //todo: login route
 router.post("/login", use(loginUser));
+router.post("/verifyToken", requireAuth, use(userDetails));
 
 //todo: signup route
 router.post("/signup", use(signupUser));

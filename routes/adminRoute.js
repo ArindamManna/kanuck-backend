@@ -28,6 +28,7 @@ const requireAdmin = require("../middleware/requireAdmin");
 
 //todo: login route
 router.post("/login", use(loginAdmin));
+router.post("/verifyToken", requireAdmin, use(adminDetails));
 
 //todo: home route to create new admin
 router.post("/create", requireAdmin, use(createAdmin));

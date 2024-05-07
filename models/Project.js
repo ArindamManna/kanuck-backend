@@ -9,7 +9,6 @@ const projectSchema = new Schema(
     },
     description: {
       type: String,
-      required: true,
     },
     location: {
       url: String,
@@ -29,8 +28,8 @@ const projectSchema = new Schema(
       },
     ],
     price: {
-      from: { type: String, required: true },
-      to: { type: String, required: true },
+      from: String,
+      to: String,
     },
     images: [
       {
@@ -43,7 +42,6 @@ const projectSchema = new Schema(
     },
     listingStatus: {
       type: String,
-      required: true,
     },
     amenitiesList: [
       {

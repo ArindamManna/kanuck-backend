@@ -8,14 +8,14 @@ const addProperty = async (req, res) => {
   if (!project) {
     throw Error("Project not found");
   }
-  const property = await Property.create(req.body);
-
-  await Project.updateOne(
-    { _id: projectId },
-    { $addToSet: { properties: property._id } }
-  );
-
-  return res.status(200).json(property);
+  const properties = [];
+  for (let i = 0; i < req.body.length; i++) {
+    const property = await Property.create(req.body[i]);
+    project.properties.push(property._id);
+    properties.push(property);
+  }
+  await project.save();
+  return res.status(200).json(properties);
 };
 
 const propertyReview = async (req, res) => {
