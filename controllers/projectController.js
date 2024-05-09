@@ -1,5 +1,6 @@
 const Builder = require("../models/Builder");
 const Project = require("../models/Project");
+const Property = require("../models/Property");
 const Review = require("../models/Review");
 
 const addProject = async (req, res) => {
@@ -8,7 +9,19 @@ const addProject = async (req, res) => {
   if (!builder) {
     throw Error("Builder not found");
   }
-  const project = await Project.create(req.body);
+
+  const project = await Project.create({ ...req.body, properties: [] });
+
+  if (req.body.properties) {
+    const properties = req.body.properties;
+    const propertyList = [];
+    for (let i = 0; i < properties.length; i++) {
+      const property = await Property.create(properties[i]);
+      propertyList.push(property._id);
+    }
+    project.properties = propertyList;
+    await project.save();
+  }
 
   await Builder.updateOne(
     { _id: req.body.builderId },
@@ -18,20 +31,20 @@ const addProject = async (req, res) => {
 };
 
 const addImage = async (req, res) => {
-  console.log(req.files);
+  const project = await Project.findById(req.body.projectId);
+  if (!project) {
+    throw Error("Project not found");
+  }
   if (!req.files) {
     throw Error("No files were uploaded.");
   }
-  const imageUrl = `${process.env.BASE_URL}/${req.file?.path}`;
-  const projectId = req.params.projectId;
-  // const project = await Project.findByIdAndUpdate(
-  //   projectId,
-  //   { $addToSet: { images: { url: imageUrl } } },
-  //   {
-  //     new: true,
-  //   }
-  // );
-  return res.status(200).json(req.files);
+
+  for (let i = 0; i < req.files.length; i++) {
+    const imageUrl = `${process.env.BASE_URL}/${req.files[0]?.path}`;
+    project.images.push({ url: imageUrl });
+  }
+  await project.save();
+  return res.status(200).json(project);
 };
 
 // const addTags = async (req, res) => {
