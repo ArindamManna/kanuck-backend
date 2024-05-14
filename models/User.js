@@ -39,13 +39,12 @@ const userSchema = new Schema(
 userSchema.statics.signup = async function (
   fname,
   lname,
-  ccode,
   pno,
   email,
   password
 ) {
   //todo: validation
-  if (!fname || !lname || !ccode || !pno || !email || !password) {
+  if (!fname || !lname || !pno || !email || !password) {
     throw Error("All fields must be filled");
   }
   if (!validator.isEmail(email)) {
@@ -68,7 +67,6 @@ userSchema.statics.signup = async function (
   const user = await this.create({
     fname,
     lname,
-    ccode,
     pno,
     email,
     password: hash,
