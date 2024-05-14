@@ -42,23 +42,23 @@ router.post("/project/review/:projectId", requireAuth, use(projectReview));
 router.post("/property/review/:propertyId", requireAuth, use(propertyReview));
 
 //todo: get review route
-router.get("/builder/reviews", requireAuth, use(getBuilderReviews));
-router.get("/project/reviews", requireAuth, use(getProjectReviews));
-router.get("/property/reviews", requireAuth, use(getPropertyReviews));
+router.get("/builder/reviews", use(getBuilderReviews));
+router.get("/project/reviews", use(getProjectReviews));
+router.get("/property/reviews", use(getPropertyReviews));
 
 //todo: get builds
-router.get("/builder/all", requireAuth, use(getAllBuilder));
-router.get("/builder/:builderId", requireAuth, use(getBuilder));
+router.get("/builder/all", use(getAllBuilder));
+router.get("/builder/:builderId", use(getBuilder));
 
 //todo: get projects
-router.get("/project/all", requireAuth, use(getAllProjects));
-router.get("/project/:projectId", requireAuth, use(getProject));
+router.get("/project/all", use(getAllProjects));
+router.get("/project/:projectId", use(getProject));
 
 //todo: get property
-router.get("/property/all", requireAuth, use(getAllProperty));
-router.get("/property/:propertyId", requireAuth, use(getProperty));
+router.get("/property/all", use(getAllProperty));
+router.get("/property/:propertyId", use(getProperty));
 
 //todo: contact us route
-router.post("/contactus", requireAuth, use(contactUser));
+router.post("/contactus", use(contactUser));
 
 module.exports = router;

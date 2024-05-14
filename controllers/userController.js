@@ -26,8 +26,10 @@ const loginUser = async (req, res) => {
 
 //todo: signup user
 const signupUser = async (req, res) => {
-  const { fname, lname, pno, email, password } = req.body;
-
+  const { fname, lname, pno, email, password, cpassword, isTermsChecked } =
+    req.body;
+  if (!isTermsChecked) throw Error("Please check the terms and conditions");
+  if (password !== cpassword) throw Error("Password not match");
   const user = await User.signup(fname, lname, pno, email, password);
 
   //todo: create a token
