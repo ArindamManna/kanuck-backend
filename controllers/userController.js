@@ -55,7 +55,9 @@ const contactUser = async (req, res) => {
 };
 
 const userDetails = async (req, res) => {
-  return res.status(200).json(req.user);
+  const userp = req.user.toObject();
+  const { password, ...user } = userp;
+  return res.status(200).json(user);
 };
 
 module.exports = {

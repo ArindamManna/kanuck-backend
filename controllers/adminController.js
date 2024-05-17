@@ -27,8 +27,9 @@ const loginAdmin = async (req, res) => {
 };
 
 const adminDetails = async (req, res) => {
-  // const projects = await Project.find({ adminId: req.user._id });
-  return res.status(200).json(req.user);
+  const userp = req.user.toObject();
+  const { password, ...user } = userp;
+  return res.status(200).json(user);
 };
 
 const updatedProject = async (req, res) => {
