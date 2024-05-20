@@ -25,6 +25,7 @@ const projectSchema = new Schema(
     tags: [
       {
         label: String,
+        value: String,
       },
     ],
     price: {

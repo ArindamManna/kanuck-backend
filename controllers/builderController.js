@@ -41,25 +41,32 @@ const getBuilder = async (req, res) => {
 };
 
 const getAllBuilder = async (req, res) => {
-  const builders = await Builder.find();
-  for (let i = 0; i < builders.length; i++) {
-    await builders[i].populate("projects");
-  }
+  const builders = await Builder.find({})
+    .populate("projects")
+    .populate("reviews");
+
   return res.status(200).json(builders);
 };
 
 const updateBuilder = async (req, res) => {
-  const builderId = req.params.builderId;
-  const builder = await Builder.findByIdAndUpdate(builderId, req.body, {
+  const builderId = req.query.builder_id;
+  const builder = await Builder.findById(builderId);
+
+  const updatedBuilder = await Builder.findByIdAndUpdate(builderId, req.body, {
     new: true,
   });
-  return res.status(200).json(builder);
+  return res.status(200).json(updatedBuilder);
 };
 
 const deleteBuilder = async (req, res) => {
-  const builderId = req.params.builderId;
-  const builder = await Builder.findByIdAndDelete(builderId);
-  return res.status(200).json(builder);
+  const builderId = req.query.builder_id;
+  const builder = await Builder.findById(builderId);
+  if (builder.projects.length > 0) {
+    const deletedBuilder = await Builder.findByIdAndDelete(builderId);
+    return res.status(200).json(deletedBuilder);
+  }
+
+  return res.status(400).json({ error: "Builder can't be deleted" });
 };
 
 const builderReview = async (req, res) => {

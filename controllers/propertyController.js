@@ -54,7 +54,7 @@ const getProperty = async (req, res) => {
 };
 
 const getAllProperty = async (req, res) => {
-  const properties = await Property.find();
+  const properties = await Property.find({}).populate("reviews");
   return res.status(200).json(properties);
 };
 
