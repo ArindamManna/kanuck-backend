@@ -83,10 +83,17 @@ const addImage = async (req, res) => {
 // };
 
 const updateProject = async (req, res) => {
-  const projectId = req.params.projectId;
+  const projectId = req.query.project_id;
+  // const builderId = req.query.builder_id;
   const project = await Project.findByIdAndUpdate(projectId, req.body, {
     new: true,
   });
+  const builder = await Builder.findByIdAndUpdate(
+    project.builderId,
+    { $addToSet: { projects: project._id } },
+    { new: true }
+  );
+  // console.log("Builder saved successfully", project.builderId);
   return res.status(200).json(project);
 };
 const deleteProject = async (req, res) => {

@@ -28,7 +28,7 @@ router.post("/add/:builderId", use(addProject));
 router.post("/add/image/:projectId", upload.array("image"), use(addImage));
 // router.post("/add/anemities/:projectId", use(addAnemities));
 // router.post("/add/highlights/:projectId", use(addHighlights));
-router.put("/update/:projectId", use(updateProject));
+router.put("/update", use(updateProject));
 router.delete("/delete/:projectId", use(deleteProject));
 
 module.exports = router;
