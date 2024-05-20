@@ -145,6 +145,9 @@ const getProject = async (req, res) => {
 
 const getAllProjects = async (req, res) => {
   const projects = await Project.find();
+  for (let i = 0; i < projects.length; i++) {
+    await projects[i].populate("builderId");
+  }
   return res.status(200).json(projects);
 };
 module.exports = {
