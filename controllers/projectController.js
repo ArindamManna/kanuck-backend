@@ -144,7 +144,9 @@ const getProject = async (req, res) => {
 };
 
 const getAllProjects = async (req, res) => {
-  const projects = await Project.find({}).populate("builderId");
+  const projects = await Project.find({})
+    .populate("builderId")
+    .populate("properties");
 
   const updatedProjects = projects.map((project) => {
     const projectObject = project.toObject();
