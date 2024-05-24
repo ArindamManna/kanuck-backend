@@ -39,7 +39,7 @@ const signupUser = async (req, res) => {
 
 //todo: contact us user
 const contactUser = async (req, res) => {
-  const { fname, lname, pno, email, message } = req.body;
+  const { fname, lname, phone, email, message } = req.body;
 
   // const contact = await Contact.create({
   //   userId: req.user._id,
@@ -54,7 +54,7 @@ const contactUser = async (req, res) => {
     "Contact Us",
     fname,
     lname,
-    pno,
+    phone,
     email,
     message,
     contactEmail

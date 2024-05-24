@@ -1,4 +1,4 @@
-const contactEmail = (fname, lname, pno, email, message) => {
+const contactEmail = (fname, lname, phone, email, message) => {
   return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">
     <head>
@@ -426,7 +426,7 @@ const contactEmail = (fname, lname, pno, email, message) => {
                                                                 </tr>
                                                                 <tr>
                                                                     <td align="left" class="es-m-txt-c" style="padding: 0; margin: 0; padding-top: 5px">
-                                                                        <p style="margin: 0; mso-line-height-rule: exactly; font-family: 'Josefin Sans', helvetica, arial, sans-serif; line-height: 24px; letter-spacing: 0; color: #001523; font-size: 16px"><a target="_blank" href="mailto:realagency@email" style="mso-line-height-rule: exactly; text-decoration: underline; color: #001523; font-size: 14px">+91 ${pno}</a></p>
+                                                                        <p style="margin: 0; mso-line-height-rule: exactly; font-family: 'Josefin Sans', helvetica, arial, sans-serif; line-height: 24px; letter-spacing: 0; color: #001523; font-size: 16px"><a target="_blank" href="mailto:realagency@email" style="mso-line-height-rule: exactly; text-decoration: underline; color: #001523; font-size: 14px">+91 ${phone}</a></p>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>

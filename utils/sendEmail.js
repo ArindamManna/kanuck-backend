@@ -6,7 +6,7 @@ const sendEmail = (
   subject,
   fname,
   lname,
-  pno,
+  phone,
   email,
   message,
   template
@@ -46,7 +46,7 @@ const sendEmail = (
       from: "admin@gmail.com",
       to: to,
       subject: subject,
-      html: template(fname, lname, pno, email, message),
+      html: template(fname, lname, phone, email, message),
     };
 
     //todo: Send email
