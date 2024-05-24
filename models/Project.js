@@ -7,15 +7,70 @@ const projectSchema = new Schema(
       type: String,
       required: true,
     },
-    description: {
-      type: String,
-    },
     location: {
       url: String,
       label: String,
       latitude: Number,
       longitude: Number,
     },
+    price: {
+      from: String,
+      to: String,
+    },
+    images: [
+      {
+        url: String,
+      },
+    ],
+    floorPlans: {
+      heading: String,
+      text: String,
+    },
+    description: {
+      type: String,
+    },
+    overview: {
+      type: String,
+    },
+    details: {
+      buildingType: String,
+      ownership: {
+        ownerName: String,
+      },
+      sellingStatus: String,
+      interiorDesigner: {
+        name: String,
+      },
+      architect: {
+        name: String,
+      },
+      marketingCompany: {
+        name: String,
+        marketingSummery: String,
+      },
+      salesCompany: {
+        name: String,
+      },
+    },
+    amenitiesList: [
+      {
+        label: String,
+      },
+    ],
+    highlights: [
+      {
+        label: String,
+        quantity: Number,
+        type: String,
+        iconType: String,
+      },
+    ],
+    features_finises: {
+      title: String,
+      subTitle: String,
+      description: String,
+    },
+
     reviews: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -28,38 +83,13 @@ const projectSchema = new Schema(
         value: String,
       },
     ],
-    price: {
-      from: String,
-      to: String,
-    },
-    images: [
-      {
-        url: String,
-      },
-    ],
+
     builderId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Builder",
     },
     listingStatus: {
       type: String,
-    },
-    amenitiesList: [
-      {
-        label: String,
-      },
-    ],
-    highlights: [
-      {
-        label: String,
-        quantity: Number,
-        iconType: String,
-      },
-    ],
-    fearutesFinished: {
-      title: String,
-      subTitle: String,
-      description: String,
     },
     properties: [
       {
