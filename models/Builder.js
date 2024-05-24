@@ -6,6 +6,9 @@ const builderSchema = new Schema(
     name: {
       type: String,
       required: true,
+      // required: [true, "Name is required Please specify your name"],
+      // minlength: [3, "Name must be at least 3 characters long"],
+      // maxlength: [100, "Name must be less than 100 characters long"],
     },
     email: {
       type: String,

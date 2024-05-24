@@ -1,4 +1,6 @@
 const Builder = require("../models/Builder");
+const Project = require("../models/Project");
+const Property = require("../models/Property");
 const Review = require("../models/Review");
 
 const addBuilder = async (req, res) => {
@@ -59,14 +61,35 @@ const updateBuilder = async (req, res) => {
 };
 
 const deleteBuilder = async (req, res) => {
-  const builderId = req.query.builder_id;
+  const builderId = req.params.builderId;
   const builder = await Builder.findById(builderId);
-  if (builder.projects.length > 0) {
-    const deletedBuilder = await Builder.findByIdAndDelete(builderId);
-    return res.status(200).json(deletedBuilder);
+
+  if (!builder) {
+    throw Error("Builder not found");
   }
 
-  return res.status(400).json({ error: "Builder can't be deleted" });
+  if (builder.projects) {
+    const projects = await Project.find({ _id: { $in: builder.projects } });
+
+    // Delete all properties within each project
+    for (const project of projects) {
+      if (project.properties)
+        await Property.deleteMany({ _id: { $in: project.properties } });
+    }
+  }
+
+  // Delete all projects of the builder
+  await Project.deleteMany({ _id: { $in: builder.projects } });
+
+  // Delete builder
+  await Builder.deleteOne({ _id: builderId });
+
+  // if (builder.projects.length > 0) {
+  //   const deletedBuilder = await Builder.findByIdAndDelete(builderId);
+  //   return res.status(200).json(deletedBuilder);
+  // }
+
+  return res.status(200).json({ message: "Builder deleted successfully" });
 };
 
 const builderReview = async (req, res) => {

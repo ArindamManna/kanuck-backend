@@ -87,9 +87,8 @@ const removeReview = async (req, res) => {
 };
 
 const createAdmin = async (req, res) => {
-  const { fname, lname, ccode, pno, email, password } = req.body;
-
-  let user = await User.signup(fname, lname, ccode, pno, email, password);
+  const { fname, lname, pno, email, password } = req.body;
+  let user = await User.signup(fname, lname, pno, email, password);
 
   user = await user.updateOne({ $set: { isAdmin: true } });
 
