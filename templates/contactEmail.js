@@ -1,5 +1,5 @@
-const contactEmail = (cname, email, message) => {
-    return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+const contactEmail = (fname, lname, pno, email, message) => {
+  return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">
     <head>
         <meta charset="UTF-8" />
@@ -422,7 +422,12 @@ const contactEmail = (cname, email, message) => {
                                                         <td align="left" style="padding: 0; margin: 0; width: 405px">
                                                             <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse; border-spacing: 0px">
                                                                 <tr>
-                                                                    <td align="left" class="es-m-txt-c" style="padding: 0; margin: 0"><h2 style="margin: 0; font-family: 'Josefin Sans', helvetica, arial, sans-serif; mso-line-height-rule: exactly; letter-spacing: 0; font-size: 32px; font-style: normal; font-weight: normal; line-height: 38px; color: #001523">${cname}</h2></td>
+                                                                    <td align="left" class="es-m-txt-c" style="padding: 0; margin: 0"><h2 style="margin: 0; font-family: 'Josefin Sans', helvetica, arial, sans-serif; mso-line-height-rule: exactly; letter-spacing: 0; font-size: 32px; font-style: normal; font-weight: normal; line-height: 38px; color: #001523">${fname} ${lname}</h2></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="left" class="es-m-txt-c" style="padding: 0; margin: 0; padding-top: 5px">
+                                                                        <p style="margin: 0; mso-line-height-rule: exactly; font-family: 'Josefin Sans', helvetica, arial, sans-serif; line-height: 24px; letter-spacing: 0; color: #001523; font-size: 16px"><a target="_blank" href="mailto:realagency@email" style="mso-line-height-rule: exactly; text-decoration: underline; color: #001523; font-size: 14px">+91 ${pno}</a></p>
+                                                                    </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td align="left" class="es-m-txt-c" style="padding: 0; margin: 0; padding-top: 5px">

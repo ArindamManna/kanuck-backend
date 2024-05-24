@@ -1,7 +1,16 @@
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 
-const sendEmail = (to, subject, cname, email, message, template) => {
+const sendEmail = (
+  to,
+  subject,
+  fname,
+  lname,
+  pno,
+  email,
+  message,
+  template
+) => {
   //todo: Create an OAuth2 client
   const OAuth2 = google.auth.OAuth2;
   const oauth2Client = new OAuth2(
@@ -34,10 +43,10 @@ const sendEmail = (to, subject, cname, email, message, template) => {
 
     //todo: Define email options
     const mailOptions = {
-      from: "akoley012@gmail.com",
+      from: "admin@gmail.com",
       to: to,
       subject: subject,
-      html: template(cname, email, message),
+      html: template(fname, lname, pno, email, message),
     };
 
     //todo: Send email

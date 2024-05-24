@@ -39,7 +39,7 @@ const signupUser = async (req, res) => {
 
 //todo: contact us user
 const contactUser = async (req, res) => {
-  const { name, email, message } = req.body;
+  const { fname, lname, pno, email, message } = req.body;
 
   // const contact = await Contact.create({
   //   userId: req.user._id,
@@ -49,7 +49,16 @@ const contactUser = async (req, res) => {
   // });
 
   //todo: send an email
-  sendEmail(email, "Contact Us", name, email, message, contactEmail);
+  sendEmail(
+    "arindammannawork@gmail.com",
+    "Contact Us",
+    fname,
+    lname,
+    pno,
+    email,
+    message,
+    contactEmail
+  );
 
   return res.status(200).json({ message: "Email sent successfully" });
 };
