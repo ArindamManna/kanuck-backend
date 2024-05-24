@@ -49,7 +49,7 @@ const getAllBuilder = async (req, res) => {
 };
 
 const updateBuilder = async (req, res) => {
-  const builderId = req.query.builder_id;
+  const builderId = req.params.builder_id;
   const builder = await Builder.findById(builderId);
 
   const updatedBuilder = await Builder.findByIdAndUpdate(builderId, req.body, {

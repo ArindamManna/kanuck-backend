@@ -17,8 +17,19 @@ const propertySchema = new Schema(
       latitude: Number,
       longitude: Number,
     },
-    listingStatus: {
+    listing_status: {
       type: String,
+    },
+    images: [
+      {
+        url: String,
+      },
+    ],
+    details: {
+      buildingType: String,
+      ownership: {
+        ownerName: String,
+      },
     },
     description: {
       type: String,
@@ -34,19 +45,11 @@ const propertySchema = new Schema(
         ref: "Review",
       },
     ],
-    units: [
+    highlights: [
       {
-        name: String,
-        price: String,
-        listingStatus: String,
-        area: String,
-        highlights: [
-          {
-            label: String,
-            quantity: Number,
-            iconType: String,
-          },
-        ],
+        label: String,
+        quantity: Number,
+        type: { type: String },
       },
     ],
   },
