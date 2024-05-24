@@ -98,8 +98,17 @@ const updateProject = async (req, res) => {
 };
 const deleteProject = async (req, res) => {
   const projectId = req.params.projectId;
-  const project = await Project.findByIdAndDelete(projectId);
-  return res.status(200).json(project);
+  const project = await Project.findById(projectId);
+
+  if (!project) {
+    throw Error("Project not found");
+  }
+
+  await Property.deleteMany({ _id: { $in: project.properties } });
+
+  await Project.deleteOne({ _id: projectId });
+
+  return res.status(200).json({ message: "Project deleted successfully" });
 };
 
 const projectReview = async (req, res) => {
