@@ -60,9 +60,8 @@ const projectSchema = new Schema(
     highlights: [
       {
         label: String,
-        quantity: String,
-        type: String,
-        iconType: String,
+        quantity: Number,
+        type: { type: String },
       },
     ],
     features_finises: {

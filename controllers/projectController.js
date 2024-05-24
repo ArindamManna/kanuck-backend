@@ -9,7 +9,7 @@ const addProject = async (req, res) => {
   if (!builder) {
     throw Error("Builder not found");
   }
-
+  // console.log({ ...req.body, properties: [] });
   const project = await Project.create({ ...req.body, properties: [] });
 
   if (req.body.properties) {
