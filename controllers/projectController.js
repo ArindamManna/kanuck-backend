@@ -149,7 +149,9 @@ const getProject = async (req, res) => {
   await project.populate("properties");
   await project.populate("reviews");
 
-  return res.status(200).json(project);
+  const builder = await Builder.findById(project.builderId);
+
+  return res.status(200).json({ ...project._doc, builder });
 };
 
 const getAllProjects = async (req, res) => {
