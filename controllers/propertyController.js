@@ -121,11 +121,11 @@ const updateProperty = async (req, res) => {
     return res.status(200).json(property);
   }
 
-  const project = await Project.findById(projectId);
-  const properties = project.properties;
+  // const project = await Project.findById(projectId);
+  const properties = req.body;
 
   for (let i = 0; i < properties.length; i++) {
-    await Property.findByIdAndUpdate(properties[i], req.body.properties[i], {
+    await Property.findByIdAndUpdate(properties[i]._id, properties[i], {
       new: true,
     });
   }
