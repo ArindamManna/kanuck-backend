@@ -8,14 +8,16 @@ const addProperty = async (req, res) => {
   if (!project) {
     throw Error("Project not found");
   }
-  const properties = [];
   for (let i = 0; i < req.body.length; i++) {
     const property = await Property.create(req.body[i]);
-    project.properties.push(property._id);
-    properties.push(property);
+    await Project.updateOne(
+      { _id: projectId },
+      { $addToSet: { properties: property._id } }
+    );
   }
-  await project.save();
-  return res.status(200).json(properties);
+
+  const projects = await Project.findById(projectId).populate("properties");
+  return res.status(200).json(projects.properties);
 };
 
 const propertyReview = async (req, res) => {
@@ -109,11 +111,26 @@ const getPropertyReviews = async (req, res) => {
 };
 
 const updateProperty = async (req, res) => {
-  const propertyId = req.params.propertyId;
-  const property = await Property.findByIdAndUpdate(propertyId, req.body, {
-    new: true,
-  });
-  return res.status(200).json(property);
+  const propertyId = req.query.property_id;
+  const projectId = req.query.project_id;
+
+  if (propertyId) {
+    const property = await Property.findByIdAndUpdate(propertyId, req.body, {
+      new: true,
+    });
+    return res.status(200).json(property);
+  }
+
+  const project = await Project.findById(projectId);
+  const properties = project.properties;
+
+  for (let i = 0; i < properties.length; i++) {
+    await Property.findByIdAndUpdate(properties[i], req.body.properties[i], {
+      new: true,
+    });
+  }
+  const projects = await Project.findById(projectId).populate("properties");
+  return res.status(200).json(projects);
 };
 const deleteProperty = async (req, res) => {
   const propertyId = req.params.propertyId;
