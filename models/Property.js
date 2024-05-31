@@ -30,6 +30,8 @@ const propertySchema = new Schema(
       ownership: {
         ownerName: String,
       },
+      propertieType: String,
+      sellingStatus: String,
     },
     description: {
       type: String,
