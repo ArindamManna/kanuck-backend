@@ -14,8 +14,8 @@ const propertySchema = new Schema(
     location: {
       url: String,
       label: String,
-      latitude: Number,
-      longitude: Number,
+      lat: String,
+      lng: String,
     },
     listing_status: {
       type: String,

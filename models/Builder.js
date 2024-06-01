@@ -25,8 +25,8 @@ const builderSchema = new Schema(
     location: {
       url: String,
       label: String,
-      latitude: Number,
-      longitude: Number,
+      lat: String,
+      lng: String,
     },
     projects: [
       {
