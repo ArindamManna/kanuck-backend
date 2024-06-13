@@ -13,7 +13,7 @@ const port = process.env.PORT || 3000;
 
 //todo: cors
 const whitelist =
-  "http://localhost:3000,http://localhost:3001,https://ranauk-frontend-git-main-arindammannas-projects.vercel.app";
+  "http://localhost:3000,http://localhost:3001,https://ranauk-frontend-git-main-arindammannas-projects.vercel.app,https://kanauk-frontend.vercel.app,https://kanuck.monkeytech.in,https://monkeytech.in";
 const corsOptions = {
   origin: function (origin, callback) {
     if (!origin || whitelist.indexOf(origin) !== -1) callback(null, true);
